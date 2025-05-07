@@ -1,4 +1,4 @@
-package com.example.takenoteapp_cleanarchitecture
+package com.example.takenoteapp_cleanarchitecture.feature_take_note.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
