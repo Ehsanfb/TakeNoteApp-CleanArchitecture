@@ -1,15 +1,38 @@
+# Ignore Android Studio and IntelliJ files
+.idea/
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+
+# Ignore local gradle settings
+.gradle/
 local.properties
+
+# Ignore build outputs
+/build/
+**/build/
+
+# Ignore signing files (keep them safe and private!)
+*.jks
+
+# Ignore generated files
+/captures/
+/output/
+
+# Ignore crashlytics and Firebase analytics files
+fabric.properties
+crashlytics-build.properties
+
+# Ignore Kotlin specific files
+*.kotlin_module
+
+# Ignore log files
+*.log
+
+# Ignore generated local debug config
+*.db
+*.db-journal
+*.apk
+*.ap_
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
