@@ -4,7 +4,6 @@ import com.example.takenoteapp_cleanarchitecture.feature_take_note.data.data_sou
 import com.example.takenoteapp_cleanarchitecture.feature_take_note.domain.model.Note
 import com.example.takenoteapp_cleanarchitecture.feature_take_note.domain.repository.NoteRepository
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
 class NoteRepositoryImpl(private val noteDao: NoteDao) : NoteRepository {
     override fun getNotes(): Flow<List<Note>> {
