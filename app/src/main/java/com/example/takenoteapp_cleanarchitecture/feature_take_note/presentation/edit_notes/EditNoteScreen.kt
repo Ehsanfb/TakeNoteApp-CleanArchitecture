@@ -68,17 +68,16 @@ fun EditNoteScreen(
 
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
-            when(event) {
-                /*is EditNoteViewModel.UiEvent.ShowSnackbar -> {
-                    snackbarHostState.snackbarHostState.showSnackbar(
+            when (event) {
+                is EditNoteViewModel.UiEvent.ShowSnackbar -> {
+                    snackbarHostState.showSnackbar(
                         message = event.message
                     )
-                }*/
+                }
+
                 is EditNoteViewModel.UiEvent.SaveNote -> {
                     navController.navigateUp()
                 }
-
-                else -> {}
             }
         }
     }
@@ -89,7 +88,8 @@ fun EditNoteScreen(
                 onClick = {
                     viewModel.onEvent(EditNoteEvent.SaveNote)
                 },
-                containerColor = MaterialTheme.colorScheme.primary
+                containerColor = MaterialTheme.colorScheme.primary,
+                shape = CircleShape
             ) {
                 Icon(imageVector = Icons.Default.Save, contentDescription = "Save note")
             }
@@ -108,7 +108,7 @@ fun EditNoteScreen(
                     .padding(8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                /*Note.noteColors.forEach { color ->
+                Note.noteColors.forEach { color ->
                     val colorInt = color.toArgb()
                     Box(
                         modifier = Modifier
@@ -135,7 +135,7 @@ fun EditNoteScreen(
                                 viewModel.onEvent(EditNoteEvent.ChangeColor(colorInt))
                             }
                     )
-                }*/
+                }
             }
             Spacer(modifier = Modifier.height(16.dp))
             TransparentHintTextField(

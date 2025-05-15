@@ -100,7 +100,7 @@ class EditNoteViewModel @Inject constructor(
             }
 
             is EditNoteEvent.ChangeColor -> {
-
+                _noteColor.value = event.color
             }
 
         }
