@@ -4,5 +4,5 @@ import com.example.takenoteapp_cleanarchitecture.feature_take_note.domain.model.
 
 sealed class TakeNoteEvent {
     data class DeleteNote(val note: Note): TakeNoteEvent()
-
+    data class RestoreNote(val note: Note): TakeNoteEvent()
 }

@@ -35,10 +35,16 @@ class TakeNotesViewModel @Inject constructor(
     }
 
     fun onEvent(event: TakeNoteEvent) {
-        when(event) {
+        when (event) {
             is TakeNoteEvent.DeleteNote -> {
                 viewModelScope.launch {
                     useCases.deleteNoteUseCase(event.note)
+                }
+            }
+
+            is TakeNoteEvent.RestoreNote -> {
+                viewModelScope.launch {
+                    useCases.insertNoteUseCase(event.note)
                 }
             }
         }

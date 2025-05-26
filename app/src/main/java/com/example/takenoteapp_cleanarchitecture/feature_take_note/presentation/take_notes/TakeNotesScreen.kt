@@ -17,16 +17,21 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.takenoteapp_cleanarchitecture.feature_take_note.presentation.NavigationItem
 import com.example.takenoteapp_cleanarchitecture.feature_take_note.presentation.take_notes.components.NoteItem
+import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -35,10 +40,12 @@ fun TakeNotesScreen(
     viewModel: TakeNotesViewModel = hiltViewModel()
 ) {
 
-
     val notesState by viewModel.notesState.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
 
     Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
@@ -49,8 +56,7 @@ fun TakeNotesScreen(
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add note")
             }
-        },
-        //scaffoldState = scaffoldState
+        }
     ) {
         Column(
             modifier = Modifier
@@ -107,15 +113,15 @@ fun TakeNotesScreen(
                             },
                         onDeleteClick = {
                             viewModel.onEvent(TakeNoteEvent.DeleteNote(note))
-                            /*scope.launch {
-                                val result = scaffoldState.snackbarHostState.showSnackbar(
+                            scope.launch {
+                                val result = snackbarHostState.showSnackbar(
                                     message = "Note deleted",
                                     actionLabel = "Undo"
                                 )
-                                if(result == SnackbarResult.ActionPerformed) {
-                                    viewModel.onEvent(TakeNoteEvent.RestoreNote)
+                                if (result == SnackbarResult.ActionPerformed) {
+                                    viewModel.onEvent(TakeNoteEvent.RestoreNote(note))
                                 }
-                            }*/
+                            }
                         }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
