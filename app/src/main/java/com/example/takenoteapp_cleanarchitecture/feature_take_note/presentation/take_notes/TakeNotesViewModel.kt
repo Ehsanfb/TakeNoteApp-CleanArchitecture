@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,6 +32,16 @@ class TakeNotesViewModel @Inject constructor(
         getNotesJob = useCases.getNotesUseCase().onEach { note ->
             _notesState.value = note
         }.launchIn(viewModelScope)
+    }
+
+    fun onEvent(event: TakeNoteEvent) {
+        when(event) {
+            is TakeNoteEvent.DeleteNote -> {
+                viewModelScope.launch {
+                    useCases.deleteNoteUseCase(event.note)
+                }
+            }
+        }
     }
 
 }

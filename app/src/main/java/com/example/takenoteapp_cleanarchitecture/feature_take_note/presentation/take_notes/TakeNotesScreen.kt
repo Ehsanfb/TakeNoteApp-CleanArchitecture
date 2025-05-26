@@ -17,6 +17,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -104,18 +105,18 @@ fun TakeNotesScreen(
                                             "?noteId=${note.id}&noteColor=${note.color}"
                                 )
                             },
-                        /*onDeleteClick = {
-                            viewModel.onEvent(NotesEvent.DeleteNote(note))
-                            scope.launch {
+                        onDeleteClick = {
+                            viewModel.onEvent(TakeNoteEvent.DeleteNote(note))
+                            /*scope.launch {
                                 val result = scaffoldState.snackbarHostState.showSnackbar(
                                     message = "Note deleted",
                                     actionLabel = "Undo"
                                 )
                                 if(result == SnackbarResult.ActionPerformed) {
-                                    viewModel.onEvent(NotesEvent.RestoreNote)
+                                    viewModel.onEvent(TakeNoteEvent.RestoreNote)
                                 }
-                            }
-                        }*/
+                            }*/
+                        }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                 }

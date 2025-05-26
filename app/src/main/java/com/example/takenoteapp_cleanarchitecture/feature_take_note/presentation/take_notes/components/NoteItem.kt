@@ -31,7 +31,7 @@ fun NoteItem(
     modifier: Modifier = Modifier,
     cornerRadius: Dp = 10.dp,
     cutCornerSize: Dp = 30.dp,
-    //onDeleteClick: () -> Unit
+    onDeleteClick: () -> Unit
 ) {
     Box(
         modifier = modifier
@@ -84,8 +84,7 @@ fun NoteItem(
             )
         }
         IconButton(
-            //onClick = { onDeleteClick },
-            onClick = {  },
+            onClick = onDeleteClick,
             modifier = Modifier.align(Alignment.BottomEnd)
         ) {
             Icon(
@@ -109,7 +108,7 @@ fun NoteItemPreview() {
                 timestamp = System.currentTimeMillis(),
                 color = Color.Gray.toArgb()
             ),
-            //onDeleteClick = { /* no-op for preview */ },
+            onDeleteClick = { },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(150.dp)
