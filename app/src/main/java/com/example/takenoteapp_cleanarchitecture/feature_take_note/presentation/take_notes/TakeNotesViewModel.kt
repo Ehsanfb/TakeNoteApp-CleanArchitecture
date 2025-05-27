@@ -2,8 +2,9 @@ package com.example.takenoteapp_cleanarchitecture.feature_take_note.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.takenoteapp_cleanarchitecture.feature_take_note.domain.model.Note
 import com.example.takenoteapp_cleanarchitecture.feature_take_note.domain.use_case.NoteUseCases
+import com.example.takenoteapp_cleanarchitecture.feature_take_note.domain.util.NoteOrder
+import com.example.takenoteapp_cleanarchitecture.feature_take_note.domain.util.OrderType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,19 +19,19 @@ class TakeNotesViewModel @Inject constructor(
     private val useCases: NoteUseCases
 ) : ViewModel() {
 
-    private val _notesState = MutableStateFlow<List<Note>>(emptyList())
-    val notesState: StateFlow<List<Note>> = _notesState
+    private val _notesState = MutableStateFlow(NotesState())
+    val notesState: StateFlow<NotesState> = _notesState
 
     private var getNotesJob: Job? = null
 
     init {
-        getNotes()
+        getNotes(NoteOrder.Date(OrderType.Descending))
     }
 
-    private fun getNotes() {
+    private fun getNotes(noteOrder: NoteOrder) {
         getNotesJob?.cancel()
-        getNotesJob = useCases.getNotesUseCase().onEach { note ->
-            _notesState.value = note
+        getNotesJob = useCases.getNotesUseCase().onEach { notes ->
+            _notesState.value = notesState.value.copy(notes = notes, noteOrder = noteOrder)
         }.launchIn(viewModelScope)
     }
 
@@ -46,6 +47,20 @@ class TakeNotesViewModel @Inject constructor(
                 viewModelScope.launch {
                     useCases.insertNoteUseCase(event.note)
                 }
+            }
+
+            is TakeNoteEvent.Order -> {
+                if (notesState.value.noteOrder::class == event.noteOrder::class &&
+                    notesState.value.noteOrder.orderType == event.noteOrder.orderType
+                ) {
+                    return
+                }
+                getNotes(event.noteOrder)
+            }
+
+            is TakeNoteEvent.ToggleOrderSection -> {
+                _notesState.value =
+                    notesState.value.copy(isOrderSectionVisible = !notesState.value.isOrderSectionVisible)
             }
         }
     }
