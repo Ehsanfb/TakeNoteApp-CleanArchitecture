@@ -30,7 +30,7 @@ class TakeNotesViewModel @Inject constructor(
 
     private fun getNotes(noteOrder: NoteOrder) {
         getNotesJob?.cancel()
-        getNotesJob = useCases.getNotesUseCase().onEach { notes ->
+        getNotesJob = useCases.getNotesUseCase(noteOrder).onEach { notes ->
             _notesState.value = notesState.value.copy(notes = notes, noteOrder = noteOrder)
         }.launchIn(viewModelScope)
     }
