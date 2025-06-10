@@ -1,5 +1,3 @@
-# TakeNoteApp-CleanArchitecture
-
 # 📝 TakeNoteApp - Clean Architecture
 
 TakeNoteApp is a modern Android notes app built using **Clean Architecture**, **Jetpack Compose**, **Kotlin Coroutines**, and **Room database**. It allows users to create, edit, sort, and manage notes with different colors. This app follows Android development best practices with a clean separation of concerns.
