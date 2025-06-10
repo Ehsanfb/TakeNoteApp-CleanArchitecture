@@ -66,7 +66,10 @@ The app uses **Clean Architecture**, structured into three main layers:
 
 ## 📸 Screenshots
 
-*(Add screenshots of Take Note screen and Edit Note screen here)*
+![pic1](https://github.com/user-attachments/assets/077d35bc-0b0b-4b3b-9f22-98a022946e28)
+![pic2](https://github.com/user-attachments/assets/a6772458-083b-4390-ab06-837b9bd050cc)
+
+
 
 ---
 
